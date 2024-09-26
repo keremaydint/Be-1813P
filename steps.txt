@@ -1,0 +1,52 @@
+Proje Başlangıç 
+
+// proje oluştur
+npm init -y
+
+// paketleri yükle
+npm install express knex pg dotenv
+
+// env
+.env dosyası oluştur (.env.example da örnek olması açısından oluştur)
+
+// dbeaver üzerinden db oluştur 
+
+// npx knex init ile knexfile.js oluştur
+knexfile.js içinde dotenv çağır ve config oluştur
+require("dotenv").config()
+gerekli yerleri doldur, process.env.ilgili_değişken_ismi
+    connection: {
+        database: process.env.DB_NAME,
+        password: process.env.DB_PASS,
+        user:     process.env.DB_USER,
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT
+        }
+
+// migrations için gerekli klasör yapısını oluştur ve ayarları yap
+migrations: {
+      directory: "./src/models/migrations",
+    },
+
+// migrations dosyalarını oluştur
+npx knex migrate:make create_TabloİsmiBuraya_table
+
+categories, products, ingredients, product_ingredients
+
+// migration dosyası içinde table ve column'ları oluştur
+    exports.up = function(knex) {
+    return knex.schema.createTable("categories", table => {
+        table.increments("id").primary()
+        table.string("name").notNullable()
+        table.string("description").notNullable()
+        table.timestamp("created_at").defaultTo(knex.fn.now())
+        table.timestamp("updated_at").nullable()
+        table.timestamp("deleted_at").nullable()
+    } )
+    };
+
+exports.up kısmı oluşturmak istediğimiz durumu giriyoruz
+exports.down kısmı, yukarıda yaptığımız işlemin rollback'i, tam tersi işlem
+
+// migration dosyalarını oluşturduktan sonra
+npx knex migrate:latest komutu ile migrate işlemini yap ve db'yi kontrol et(refresh etmeyi unutma!)
