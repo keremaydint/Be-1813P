@@ -12,8 +12,11 @@ npm install express knex pg dotenv
 // dbeaver üzerinden db oluştur 
 
 // npx knex init ile knexfile.js oluştur
+Knex.js için yapılandırma ayarlarını içerir. Veritabanı bağlantı bilgilerini ve diğer ayarları tanımlamak için kullanılır.
+
 knexfile.js içinde dotenv çağır ve config oluştur
 require("dotenv").config()
+
 gerekli yerleri doldur, process.env.ilgili_değişken_ismi
     connection: {
         database: process.env.DB_NAME,
@@ -50,3 +53,12 @@ exports.down kısmı, yukarıda yaptığımız işlemin rollback'i, tam tersi i�
 
 // migration dosyalarını oluşturduktan sonra
 npx knex migrate:latest komutu ile migrate işlemini yap ve db'yi kontrol et(refresh etmeyi unutma!)
+
+// models klasöründe knex.js oluştur
+bu dosya ile knexfile.js'i bağladık, ayarları buradan yönetiyoruz
+
+
+// models klasörü içinde
+category.js , product.js , ingredient.js oluştur
+bu dosyalarda Oluşturma, Güncelleme, Veri Çekme, Silme işlemlerini yapıyoruz
+

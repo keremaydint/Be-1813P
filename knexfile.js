@@ -4,9 +4,10 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
-module.exports = {
+const knexfile = {
   development: {
     client: "pg",
     connection: {
@@ -21,3 +22,5 @@ module.exports = {
     },
   },
 };
+
+export default knexfile;
