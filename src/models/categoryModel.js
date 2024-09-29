@@ -1,8 +1,16 @@
 import knex from "./knex.js";
+import { SHOW_DELETED } from "../constants.js";
 
 export const Category = {
-  getAll: () => {
-    return knex("categories").whereNull("deleted_at");
+  getAll: (query) => {
+    const { showDeleted } = query;
+    if (showDeleted === SHOW_DELETED.TRUE) {
+      return knex("categories");
+    } else if (showDeleted === SHOW_DELETED.ONLY_DELETED) {
+      return knex("categories").whereNotNull("deleted_at");
+    } else {
+      return knex("categories").whereNull("deleted_at");
+    }
   },
 
   getById: (id) => {

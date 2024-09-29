@@ -2,7 +2,7 @@ import { Category } from "../models/categoryModel.js";
 
 export const getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.getAll();
+    const categories = await Category.getAll(req.query);
     res.json(categories);
   } catch (error) {
     res.status(400).json({ message: "Failed to retrieve categories." });

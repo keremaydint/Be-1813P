@@ -4,7 +4,6 @@
  */
 export const up = (knex) => {
   return knex.schema.createTable("product_ingredients", (table) => {
-    table.increments("id").primary();
     table
       .integer("product_id")
       .references("id")
