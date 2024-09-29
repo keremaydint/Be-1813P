@@ -12,7 +12,9 @@ npm install express knex pg dotenv
 // dbeaver üzerinden db oluştur 
 
 // npx knex init ile knexfile.js oluştur
-Knex.js için yapılandırma ayarlarını içerir. Veritabanı bağlantı bilgilerini ve diğer ayarları tanımlamak için kullanılır.
+Knex.js için yapılandırma ayarlarını içerir. 
+Veritabanı bağlantı bilgilerini ve diğer ayarları tanımlamak için kullanılır.
+    Veritabanını istekler, sorgular atabilmek için gerekli ayarları burada yapıyoruz
 
 knexfile.js içinde dotenv çağır ve config oluştur
 require("dotenv").config()
@@ -62,3 +64,7 @@ bu dosya ile knexfile.js'i bağladık, ayarları buradan yönetiyoruz
 category.js , product.js , ingredient.js oluştur
 bu dosyalarda Oluşturma, Güncelleme, Veri Çekme, Silme işlemlerini yapıyoruz
 
+models
+    knex.js dosyasını çağır, veritabanına erişim ve sorgu atabilmek için
+controllers
+routes

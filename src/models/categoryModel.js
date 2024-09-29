@@ -13,8 +13,14 @@ export const Category = {
     return knex("categories").insert(category).returning("*");
   },
 
-  // update ederken silinmiş mi diye kontrol et!!!
   update: (id, category) => {
+    const existingCategory = knex("categories")
+      .where({ id })
+      .whereNull("deleted_at")
+      .first();
+    if (!existingCategory) {
+      throw new Error("Category not found or is deleted");
+    }
     category.updated_at = new Date();
     return knex("categories").where({ id }).update(category).returning("*");
   },

@@ -5,9 +5,7 @@ export const getAllCategories = async (req, res) => {
     const categories = await Category.getAll();
     res.json(categories);
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Tüm hata mesajlarını aynı formatta yap!!!" });
+    res.status(400).json({ message: "Failed to retrieve categories." });
   }
 };
 
@@ -19,7 +17,9 @@ export const getCategoryById = async (req, res) => {
     }
     res.json(category);
   } catch (error) {
-    res.status(400).json({ message: "Status 400 , getCategoryById kısmında" });
+    res
+      .status(500)
+      .json({ message: "Failed to retrieve category: " + error.message });
   }
 };
 
@@ -28,17 +28,25 @@ export const createCategory = async (req, res) => {
     const newCategory = await Category.create(req.body);
     res.status(201).json(newCategory);
   } catch (error) {
-    res.status(400).json({ message: "createCategory kısmında hata!" });
+    res
+      .status(400)
+      .json({ message: "Failed to create category: " + error.message });
+    // res.status(400).json({ message: "createCategory kısmında hata!" });
   }
 };
 
 export const updateCategory = async (req, res) => {
   try {
     const { name, description } = req.body;
-    await Category.update(req.params.id, { name, description });
-    res.status(200).json(updateCategory);
+    const updatedCategory = await Category.update(req.params.id, {
+      name,
+      description,
+    });
+    res.status(200).json(updatedCategory);
   } catch (error) {
-    res.status(400).json({ message: "updateCategory kısmında hata!" });
+    res
+      .status(400)
+      .json({ message: "Failed to update category: " + error.message });
   }
 };
 
@@ -47,6 +55,8 @@ export const deleteCategory = async (req, res) => {
     await Category.delete(req.params.id);
     res.status(202).json();
   } catch (error) {
-    res.status(400).json({ message: "deleteCategory kısmında hata!" });
+    res
+      .status(400)
+      .json({ message: "Failed to delete category: " + error.message });
   }
 };
